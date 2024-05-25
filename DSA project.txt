@@ -1,0 +1,125 @@
+#include<iostream>
+ #include using namespace std;
+
+class node{ public: int id; string task_name;
+
+	node* next;
+	
+
+node()
+	{
+		id=0;
+		task_name="";
+		next=NULL;
+	}
+
+node(int id , string task_name)
+{
+	this->id=id;
+	this->task_name=task_name;
+	this->next=NULL;
+}
+};
+
+class addtask{ public: node* head; addtask() { head=NULL; } void insertnode(int id,string task_name){ node* node1 = new node(id,task_name); if (head==NULL) { head= node1; } else{ node* temp= head; while(temp->next!=NULL){ temp=temp->next; } temp->next = node1; }
+
+}
+
+void deleteNode() {
+	int id;
+			
+    if (head == NULL) {
+        cout << "List is empty" << endl;
+        return;
+    }
+    else{
+    	cout<<"Enter Id for delete Task ";
+    	cin>>id;
+	}
+
+    if (head->id == id) {
+        node* temp = head;
+        head = head->next;
+        delete temp;
+        cout<<"\nTask with ID " << id << " deleted successfully"<<endl;
+        return;
+    }
+
+    node* prev = NULL;
+    node* current = head;
+
+    while (current != NULL && current->id != id) {
+        prev = current;
+        current = current->next;
+    }
+
+    if (current == NULL) {
+        cout<<"\nTask with ID "<<id<<" not found"<<endl;
+        return;
+    }
+
+    prev->next = current->next;
+    delete current;
+    cout<<"\nTask with ID "<<id<<" deleted successfully"<<endl;
+}
+
+void printList() {
+node* temp = head;
+if (head == NULL) {
+cout<<"List is empty "<<endl;
+}
+else {
+while (temp != NULL) {
+cout<<"\nTask ID "<<temp->id << endl;
+cout<<"\nTask Name "<<temp->task_name<<endl<<endl;
+temp = temp->next;
+}
+}
+}
+};
+
+void display(){
+	int choice;
+	cout<<"Press 1 for add task\n";
+	cout<<"Press 2 for display task\n";
+	cout<<"Press 3 for delete task\n";
+	cout<<"Press 4 for add exit\n";
+	
+}
+int main(){ int id=0,choice; string task_name; addtask tasks;
+
+do{
+display();
+cin>>choice;
+cout<<endl;
+if(choice==1){
+
+	
+	cout<<"Enter New Task ";
+	cin.ignore();
+	cin.clear();
+	getline(cin,task_name);
+	id++;
+	tasks.insertnode(id,task_name);
+	cout<<endl;
+}
+
+else if(choice==2){
+tasks.printList();
+}
+
+else if(choice==3){
+tasks.deleteNode();
+}
+
+else if(choice==4){
+cout<<"Good Bye";
+}
+
+else{
+cout<<"Invalid choice enter again\n";
+}
+
+}while(choice!=4);
+return 0;
+}
